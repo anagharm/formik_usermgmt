@@ -1,0 +1,35 @@
+.SignInUpLayout{
+    /* border : 1px red solid !important; */
+    padding-left: 5%;
+    justify-content: center;
+    width: 500px;
+}
+
+.SubmitPosition {
+    padding-left: 3%;
+    justify-items: center;
+}
+
+.Line {
+    padding-top: 3%;
+    border-bottom: 1px solid;
+    height: 15px;
+}
+
+.Link {
+    font-size: 18px;
+    width: 600px;
+}
+
+.ForgotPassword {
+    width: 150px;
+    text-align: left;
+    font-size: 18px;
+}
+
+.SignUp {
+    width: 400px;
+    margin-top: -4%;
+    text-align: right;
+    font-size: 18px;
+}

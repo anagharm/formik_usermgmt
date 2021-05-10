@@ -1,38 +1,58 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+label {
+  font-weight: bold;
+  display: flex;
+  margin-bottom: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input + label {
+  font-weight: bold;
+  display: inline-flex;
+  margin-right: 20px;
+}
+
+input[type='text'],
+input[type='email'] ,
+input[type='password'] ,
+textarea,
+select {
+  display: block;
+  /* width: 400px; */
+  padding: 0px 0px !important;
+  font-size: 18px;
+  line-height: 1.42857143;
+  color: #555;
+}
+
+.form-control {
+  margin-bottom: 20px;
+  background-color: white;
+  border: none !important;
+}
+
+.form-control:read-only {
+  background-color: white !important;
+}
+
+.error {
+  color: red;
+}
+
+.dummy-form-control {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-clip: padding-box;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  margin-bottom: 20px;
+  background-color: white;
 }
