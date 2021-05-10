@@ -28,7 +28,7 @@ function SignUp() {
     const onSubmit = values => {
                 console.log('Form data ',values)
                 console.log('Saved data ',JSON.parse(JSON.stringify(values)))
-                axios.post('/user.json',values)
+                axios.post('/api/user/post/signup',values)
                      .then(res =>{
                         toast(res.data.errorMsg)
                         console.log("data ",res.data.response)

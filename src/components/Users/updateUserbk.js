@@ -12,7 +12,7 @@ function UpdateUser(props) {
         var year_18 = todayDate.getFullYear() - 18;
         return new Date(todayDate.getDate() + "-" + todayDate.getMonth() + "-" + year_18)
     }
-    const [initialValues, setInitialValues] = useState({
+    const initialValues = {
         title: "",
         firstName: "",
         lastName: "",
@@ -24,7 +24,21 @@ function UpdateUser(props) {
         skills: [],
         description: "",
         dob: backDate()
-    })
+    }
+    // const [initialValues, setInitialValues] = useState({
+    //     title: "",
+    //     firstName: "",
+    //     lastName: "",
+    //     mobileNumber: "",
+    //     email: "",
+    //     // address         : {},
+    //     gender: "",
+    //     designation: "",
+    //     skills: [],
+    //     description: "",
+    //     dob: backDate()
+    // });
+    // const [initialValues, setInitialValues] = useState()
     const titleOptions = [
         { key: 'Select', value: '' },
         { key: 'Mr', value: 'Mr' },
@@ -63,7 +77,7 @@ function UpdateUser(props) {
         gender: Yup.string().required('Required!!'),
         designation: Yup.string().required('Required!!'),
         skills: Yup.array().required('Required!!!'),
-        description: Yup.string().required('Required!!'),
+        brief: Yup.string().required('Required!!'),
         dob: Yup.date().required('Required!!').nullable(),
     })
     const onSubmit = values => {
@@ -80,65 +94,71 @@ function UpdateUser(props) {
             designation: values.designation,
             description: values.description
         };
-        axios.patch('/api/profile/patch/updateuserdetails', tempData)
+        axios.post('/api/profile/patch/updateuserdetails', tempData)
             .then(res => {
                 toast(res.data.errorMsg)
             })
     }
-    async function getInitialValues() {
-        try {
-            const res = await axios.get('/api/profile/get/viewuserdetails/' + props.match.params.usercode)
-            return ({
-                title: "",
-                firstName: res.data.response?.firstName || "",
-                lastName: res.data.response?.lastName || "",
-                mobileNumber: "",
-                email: res.data.response?.emailId || "",
-                gender: "",
-                designation: "",
-                skills: [],
-                description: "",
-                dob: backDate()
-            })
-        } catch (error) {
-            console.error(error);
-        }
-    }
-    useEffect(() => {
-        if (props.match.params.usercode) {
-            getInitialValues().then(res => { setInitialValues(res) });
-        }
-    }, [])
-    if(initialValues.email !== ""){
+    // async function getInitialValues() {
+    //     try {
+    //         const res = await axios.get('/api/profile/get/viewuserdetails/' + props.match.params.usercode)
+    //         return ({
+    //             title: "",
+    //             firstName: res.data.response?.firstName || "",
+    //             lastName: res.data.response?.lastName || "",
+    //             mobileNumber: "",
+    //             email: res.data.response?.emailId || "",
+    //             gender: "",
+    //             designation: "",
+    //             skills: [],
+    //             description: "",
+    //             dob: backDate()
+    //         })
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+    // useEffect(() => {
+    //     if (props.match.params.usercode) {
+    //         getInitialValues().then(res => { setInitialValues(res) });
+    //     }
+    // }, [])
+    // if (initialValues.email !== "") {
+        console.log("initialValues ", initialValues)
         return (
             <div >
                 <Formik
-                        initialValues       = {initialValues}
-                        validationSchema    = {validationSchema}
-                        onSubmit            = {onSubmit}
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
                 >
                     {
-                        formik =>   <Form>
-                                        <FormikControl control='select' label='Title' name='title' options={titleOptions} />
-                                        <FormikControl control='input' type='text' label='First Name' name='firstName' />
-                                        <FormikControl control='input' type='text' label='Last Name' name='lastName' />
-                                        <FormikControl control='input' type='text' label='Mobile Number' name='mobileNumber' />
-                                        <FormikControl control='input' type='email' label='Email' name='email' />
-                                        <FormikControl control='radio' label='Gender' name='gender' options={genderOptions} />
-                                        <FormikControl control='select' label='Designation' name='designation' options={designationOptions} />
-                                        <FormikControl control='checkbox' label='Skills' name='skills' options={skillsOptions} />
-                                        <FormikControl control='date' label='Date of Birth' name='dob' />
-                                        <FormikControl control='textarea' label='Description' name='description' />
-                                        <button type="submit"  disabled={!formik.isValid}>Submit</button>
-                                    </Form>
+                        formik => {
+                            console.log("formik ", formik)
+                            return (
+                                <Form>
+                                    <FormikControl control='select' label='Title' name='title' options={titleOptions} />
+                                    <FormikControl control='input' type='text' label='First Name' name='firstName' />
+                                    <FormikControl control='input' type='text' label='Last Name' name='lastName' />
+                                    <FormikControl control='input' type='text' label='Mobile Number' name='mobileNumber' />
+                                    <FormikControl control='input' type='email' label='Email' name='email' />
+                                    <FormikControl control='radio' label='Gender' name='gender' options={genderOptions} />
+                                    <FormikControl control='select' label='Designation' name='designation' options={designationOptions} />
+                                    <FormikControl control='checkbox' label='Skills' name='skills' options={skillsOptions} />
+                                    <FormikControl control='date' label='Date of Birth' name='dob' />
+                                    <FormikControl control='textarea' label='Description' name='description' />
+                                    <button type="submit" >Submit</button>
+                                </Form>
+                            )
+                        }
                     }
                 </Formik>
             </div>
         )
-    }else{
-        return (<div>Loading</div>)
-    }
-   
+    // } else {
+    //     return (<div>Loading</div>)
+    // }
+
 }
 
 export default UpdateUser
